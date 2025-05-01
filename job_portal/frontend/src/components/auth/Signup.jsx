@@ -56,7 +56,11 @@ const Signup = () => {
             }
         } catch (error) {
             console.log(error);
-            toast.error(error.response.data.message);
+            if (error.response && error.response.data) {
+                toast.error(error.response.data.message);
+            } else {
+                toast.error("An error occurred. Please try again later.");
+            }
         } finally{
             dispatch(setLoading(false));
         }
