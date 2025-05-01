@@ -34,6 +34,33 @@ const Signup = () => {
     }
     const submitHandler = async (e) => {
         e.preventDefault();
+
+        // Validate input fields
+        if (!input.fullname) {
+            toast.error("Please enter your full name");
+            return;
+        }
+        if (!input.email) {
+            toast.error("Please enter your email");
+            return;
+        }
+        if (!input.phoneNumber) {
+            toast.error("Please enter your phone number");
+            return;
+        }
+        if (!input.password) {
+            toast.error("Please enter your password");
+            return;
+        }
+        if (!input.role) {
+            toast.error("Please select your role (Student or Recruiter)");
+            return;
+        }
+        if (!input.file) {
+            toast.error("Please upload a profile picture");
+            return;
+        }
+
         const formData = new FormData();    //formdata object
         formData.append("fullname", input.fullname);
         formData.append("email", input.email);
@@ -117,38 +144,41 @@ const Signup = () => {
                             placeholder="patel@gmail.com"
                         />
                     </div>
-                    <div className='flex items-center justify-between'>
-                        <RadioGroup className="flex items-center gap-4 my-5">
-                            <div className="flex items-center space-x-2">
-                                <Input
-                                    type="radio"
-                                    name="role"
-                                    value="student"
-                                    checked={input.role === 'student'}
-                                    onChange={changeEventHandler}
-                                    className="cursor-pointer"
-                                />
-                                <Label htmlFor="r1">Student</Label>
-                            </div>
-                            <div className="flex items-center space-x-2">
-                                <Input
-                                    type="radio"
-                                    name="role"
-                                    value="recruiter"
-                                    checked={input.role === 'recruiter'}
-                                    onChange={changeEventHandler}
-                                    className="cursor-pointer"
-                                />
-                                <Label htmlFor="r2">Recruiter</Label>
-                            </div>
-                        </RadioGroup>
-                        <div className='flex items-center gap-2'>
-                            <Label>Profile</Label>
+                    <div className='flex flex-col md:flex-row md:items-start md:justify-between gap-4'>
+                        <div className='w-full md:w-1/2'>
+                            <Label className="block mb-2 font-bold">Select Your Role</Label>
+                            <RadioGroup className="flex items-center gap-4 my-2 border p-3 rounded-md">
+                                <div className="flex items-center space-x-2">
+                                    <Input
+                                        type="radio"
+                                        name="role"
+                                        value="student"
+                                        checked={input.role === 'student'}
+                                        onChange={changeEventHandler}
+                                        className="cursor-pointer"
+                                    />
+                                    <Label htmlFor="r1">Student</Label>
+                                </div>
+                                <div className="flex items-center space-x-2">
+                                    <Input
+                                        type="radio"
+                                        name="role"
+                                        value="recruiter"
+                                        checked={input.role === 'recruiter'}
+                                        onChange={changeEventHandler}
+                                        className="cursor-pointer"
+                                    />
+                                    <Label htmlFor="r2">Recruiter</Label>
+                                </div>
+                            </RadioGroup>
+                        </div>
+                        <div className='w-full md:w-1/2'>
+                            <Label className="block mb-2 font-bold">Profile Picture</Label>
                             <Input
                                 accept="image/*"
                                 type="file"
                                 onChange={changeFileHandler}
-                                className="cursor-pointer"
+                                className="cursor-pointer border p-2"
                             />
                         </div>
                     </div>
